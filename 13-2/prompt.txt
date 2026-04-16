@@ -1,0 +1,9 @@
+⚫ Create a metafunction for filtering typelists
+⚫ This one will only let the integral types
+through
+⚫ static_assert(
+is_same_v<Filter_t<typelist<long, float>, is_integral>,
+typelist<long>>); // Only long is integral
+⚫ You will likely want to either use concepts or
+void_t
+⚫ Extra credit for using both

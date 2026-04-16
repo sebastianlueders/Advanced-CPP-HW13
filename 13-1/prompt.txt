@@ -1,0 +1,5 @@
+⚫ We gave a best practice of using constexpr
+variables instead of #define
+⚫ Why did the committee choose to #define
+feature test macros instead of using constexpr
+variables?
