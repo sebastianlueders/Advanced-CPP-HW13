@@ -1,0 +1,11 @@
+REFERENCES: 
+
+https://isocpp.org/std/standing-documents/sd-6-sg10-feature-test-recommendations
+https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0096r5.html
+
+RESPONSE:
+
+Feature test macros are defined as macros because feature detection often needs to happen during preprocessing, before the compiler parses C++ code. This enables
+portable #if based conditional compilation, including selecting headers/declarations and avoiding unsupported syntax. constexpr variables are compile time C++ 
+entities, but they are not visible to the preprocessor, so they cannot serve this role. This preprocessor-level portability and control is probably why WG21
+standardized feature-test macros.
