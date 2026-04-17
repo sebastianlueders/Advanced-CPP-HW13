@@ -1,0 +1,69 @@
+RESPONSE:
+
+Notation 1: requires clause after template header
+
+Example:
+template<typename T>
+requires std::copy_constructible<T>
+T duplicate(T const& t) {
+	return t;
+}
+
+Why/where to use it:
+- Best when constraints are not basic (multiple concepts, boolean combinations, helper concepts).
+- Very explicit and easy to scan in larger template declarations.
+- Good "default" style 
+
+
+Notation 2: trailing requires clause
+
+Example:
+template<typename T>
+T duplicate(T const& t)
+requires std::copy_constructible<T> {
+	return t;
+}
+
+Why/where to use it:
+- Useful when you want to read the full function signature first, then see constraints.
+- Often preferred for long return types/signatures, because the declaration reads naturally left-to-right.
+- Nice when comparing overloads that have similar signatures but different trailing constraints.
+
+
+Notation 3: constrained template parameter (in template header)
+
+Example:
+template<std::copy_constructible T>
+T duplicate(T const& t) {
+	return t;
+}
+
+Why/where to use it:
+- Most concise for one-parameter, direct constraints.
+- Very readable for common cases (e.g., integral, floating_point, etc.).
+- Great when the concept clearly describes the role of that parameter.
+- Becomes less ideal if constraints involve relationships between multiple template parameters.
+
+
+Notation 4: terse notation with constrained auto
+
+Example:
+auto duplicate(std::copy_constructible auto const& t) {
+	return t;
+}
+
+Why/where to use it:
+- Fastest and shortest for simple function templates.
+- Great for local utilities and algorithms where parameter intent is obvious.
+- Keeps code compact while still providing concept-based diagnostics.
+- Tradeoff: can hide template structure in more complex APIs, so it is not always best for library interfaces with many type parameters.
+
+
+Summary guidance
+
+- If you want one style that works everywhere, use Notation 1.
+- If readability of the function signature is your priority, use Notation 2.
+- If the constraint is simple and tied to a single type parameter, use Notation 3.
+- If you want very concise modern syntax for straightforward templates, use Notation 4.
+
+All four are valid and equivalent in power for many cases; the choice is mostly about readability, scaling, and API clarity.
